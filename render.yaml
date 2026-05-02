@@ -1,0 +1,22 @@
+# services:
+#   - type: web
+#     name: clinker-prediction-app
+#     env: python
+#     buildCommand: pip install -r requirements.txt
+#     startCommand: gunicorn --bind 0.0.0.0:$PORT app:app
+#     envVars:
+#       - key: PYTHON_VERSION
+#         value: 3.9.16
+#       - key: PORT
+#         value: 5000
+#     plan: free
+
+services:
+  - type: web
+    name: clinker-prediction
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
