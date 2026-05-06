@@ -4,23 +4,53 @@ document.addEventListener('DOMContentLoaded', function () {
     const loadingOverlay = document.getElementById('loadingOverlay');
 
     const FIELDS = [
-        'limestone', 'clay', 'sand', 'gypsum',
-        'CaO', 'SiO2', 'Al2O3', 'Fe2O3',
-        'moisture', 'particle_size', 'temperature'
+        'Limestone_%', 'Clay_%', 'Silica_%', 'Temperature_C', 'Time_min',
+        'gypsum', 'CaO', 'SiO2', 'Al2O3', 'Fe2O3', 'moisture', 'particle_size'
     ];
 
     const RANGES = {
-        limestone:    [0, 100],
-        clay:         [0, 100],
-        sand:         [0, 100],
-        gypsum:       [0, 20],
-        CaO:          [0, 100],
-        SiO2:         [0, 100],
-        Al2O3:        [0, 100],
-        Fe2O3:        [0, 100],
-        moisture:     [0, 20],
-        particle_size:[0, 500],
-        temperature:  [800, 1600],
+        'Limestone_%':   [75, 80],
+        'Clay_%':        [10, 15],
+        'Silica_%':      [5, 15],
+        'Temperature_C': [1400, 1450],
+        'Time_min':      [20, 30],
+        'gypsum':        [3, 6],
+        'CaO':           [60, 70],
+        'SiO2':          [15, 25],
+        'Al2O3':         [3, 8],
+        'Fe2O3':         [2, 5],
+        'moisture':      [1, 3],
+        'particle_size': [90, 120],
+    };
+
+    const LABELS = {
+        'Limestone_%':   'Limestone',
+        'Clay_%':        'Clay',
+        'Silica_%':      'Silica',
+        'Temperature_C': 'Temperature',
+        'Time_min':      'Kiln Time',
+        'gypsum':        'Gypsum',
+        'CaO':           'CaO',
+        'SiO2':          'SiO₂',
+        'Al2O3':         'Al₂O₃',
+        'Fe2O3':         'Fe₂O₃',
+        'moisture':      'Moisture',
+        'particle_size': 'Part. Size',
+    };
+
+    const UNITS = {
+        'Limestone_%':   '%',
+        'Clay_%':        '%',
+        'Silica_%':      '%',
+        'Temperature_C': '°C',
+        'Time_min':      'min',
+        'gypsum':        '%',
+        'CaO':           '%',
+        'SiO2':          '%',
+        'Al2O3':         '%',
+        'Fe2O3':         '%',
+        'moisture':      '%',
+        'particle_size': 'µm',
     };
 
     // Live validation
@@ -41,7 +71,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const [lo, hi] = RANGES[name];
         removeTooltip(input);
         input.classList.remove('error');
-
         if (input.value === '') return;
         if (isNaN(value) || value < lo || value > hi) {
             input.classList.add('error');
@@ -116,22 +145,21 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function displaySuccess(result) {
-        const val = result.prediction.toFixed(4);
+        const val = result.prediction.toFixed(2);
         const f = result.features;
-        const LABELS = {
-            limestone:'Limestone', clay:'Clay', sand:'Sand', gypsum:'Gypsum',
-            CaO:'CaO', SiO2:'SiO₂', Al2O3:'Al₂O₃', Fe2O3:'Fe₂O₃',
-            moisture:'Moisture', particle_size:'Part. Size', temperature:'Temp.'
-        };
+
         const summaryRows = Object.entries(f).map(([k, v]) =>
-            `<div class="summary-row"><span>${LABELS[k] || k}</span><span>${v}</span></div>`
+            `<div class="summary-row">
+                <span>${LABELS[k] || k}</span>
+                <span>${v} ${UNITS[k] || ''}</span>
+            </div>`
         ).join('');
 
         resultDiv.innerHTML = `
             <div class="result-success">
                 <div class="status-label"><i class="fas fa-check-circle"></i> Prediction Complete</div>
                 <div class="prediction-value">${val}</div>
-                <div class="prediction-unit">Clinker Output Ratio</div>
+                <div class="prediction-unit">Clinker Output (%)</div>
                 <div class="input-summary">
                     <div class="summary-title">Input Summary</div>
                     <div class="summary-grid">${summaryRows}</div>
@@ -150,6 +178,7 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
         `;
         resultDiv.style.borderColor = 'var(--error)';
+        resultDiv.style.background = 'var(--error-bg)';
     }
 
     function showLoading() {
