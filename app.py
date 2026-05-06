@@ -8,27 +8,26 @@ from joblib import load
 app = Flask(__name__)
 CORS(app)
 
-# Load trained model
 try:
-    with open('clinker_model_final.pkl', 'rb') as f:
-        model = load('clinker_model_final.pkl')
+    model = load('clinker_model_final.pkl')
     print("Model loaded successfully")
 except FileNotFoundError:
     print("Error: model file not found")
     model = None
 
 FEATURE_RANGES = {
-    'limestone':    (0, 100),
-    'clay':         (0, 100),
-    'sand':         (0, 100),
-    'gypsum':       (0, 20),
-    'CaO':          (0, 100),
-    'SiO2':         (0, 100),
-    'Al2O3':        (0, 100),
-    'Fe2O3':        (0, 100),
-    'moisture':     (0, 20),
-    'particle_size':(0, 500),
-    'temperature':  (800, 1600),
+    'Limestone_%':    (75, 80),
+    'Clay_%':         (10, 15),
+    'Silica_%':       (5, 15),
+    'Temperature_C':  (1400, 1450),
+    'Time_min':       (20, 30),
+    'gypsum':         (3, 6),
+    'CaO':            (60, 70),
+    'SiO2':           (15, 25),
+    'Al2O3':          (3, 8),
+    'Fe2O3':          (2, 5),
+    'moisture':       (1, 3),
+    'particle_size':  (90, 120),
 }
 
 @app.route('/')
@@ -44,9 +43,8 @@ def predict():
         data = request.get_json()
 
         features_order = [
-            'limestone', 'clay', 'sand', 'gypsum',
-            'CaO', 'SiO2', 'Al2O3', 'Fe2O3',
-            'moisture', 'particle_size', 'temperature'
+            'Limestone_%', 'Clay_%', 'Silica_%', 'Temperature_C', 'Time_min',
+            'gypsum', 'CaO', 'SiO2', 'Al2O3', 'Fe2O3', 'moisture', 'particle_size'
         ]
 
         values = {}
@@ -60,7 +58,6 @@ def predict():
             if not (lo <= values[key] <= hi):
                 return jsonify({'error': f'{key} must be between {lo} and {hi}'}), 400
 
-        # feature_array = np.array([[values[k] for k in features_order]])
         feature_array = pd.DataFrame([[values[k] for k in features_order]], columns=features_order)
         prediction = model.predict(feature_array)[0]
 
