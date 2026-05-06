@@ -14,7 +14,7 @@
         <div class="header-icon"><i class="fas fa-industry"></i></div>
         <div>
             <h1>Clinker Prediction System</h1>
-            <p>Predict clinker output ratio based on raw material composition and process parameters</p>
+            <p>Predict clinker output based on raw material composition and process parameters</p>
         </div>
     </header>
 
@@ -31,24 +31,24 @@
                 <div class="group-title">Raw Materials (%)</div>
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="limestone">Limestone (%)</label>
-                        <input type="number" id="limestone" name="limestone" step="0.1" min="0" max="100" placeholder="e.g. 81.0" required>
-                        <span class="input-info">Range: 0 – 100</span>
+                        <label for="Limestone_%">Limestone (%)</label>
+                        <input type="number" id="Limestone_%" name="Limestone_%" step="0.1" min="75" max="80" placeholder="e.g. 77.0" required>
+                        <span class="input-info">Range: 75 – 80</span>
                     </div>
                     <div class="form-group">
-                        <label for="clay">Clay (%)</label>
-                        <input type="number" id="clay" name="clay" step="0.1" min="0" max="100" placeholder="e.g. 9.0" required>
-                        <span class="input-info">Range: 0 – 100</span>
+                        <label for="Clay_%">Clay (%)</label>
+                        <input type="number" id="Clay_%" name="Clay_%" step="0.1" min="10" max="15" placeholder="e.g. 12.0" required>
+                        <span class="input-info">Range: 10 – 15</span>
                     </div>
                     <div class="form-group">
-                        <label for="sand">Sand (%)</label>
-                        <input type="number" id="sand" name="sand" step="0.1" min="0" max="100" placeholder="e.g. 10.0" required>
-                        <span class="input-info">Range: 0 – 100</span>
+                        <label for="Silica_%">Silica / Sand (%)</label>
+                        <input type="number" id="Silica_%" name="Silica_%" step="0.1" min="5" max="15" placeholder="e.g. 9.0" required>
+                        <span class="input-info">Range: 5 – 15</span>
                     </div>
                     <div class="form-group">
                         <label for="gypsum">Gypsum (%)</label>
-                        <input type="number" id="gypsum" name="gypsum" step="0.1" min="0" max="20" placeholder="e.g. 5.0" required>
-                        <span class="input-info">Range: 0 – 20</span>
+                        <input type="number" id="gypsum" name="gypsum" step="0.1" min="3" max="6" placeholder="e.g. 5.0" required>
+                        <span class="input-info">Range: 3 – 6</span>
                     </div>
                 </div>
 
@@ -56,42 +56,47 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="CaO">CaO (%)</label>
-                        <input type="number" id="CaO" name="CaO" step="0.1" min="0" max="100" placeholder="e.g. 65.0" required>
-                        <span class="input-info">Range: 0 – 100</span>
+                        <input type="number" id="CaO" name="CaO" step="0.1" min="60" max="70" placeholder="e.g. 65.0" required>
+                        <span class="input-info">Range: 60 – 70</span>
                     </div>
                     <div class="form-group">
                         <label for="SiO2">SiO₂ (%)</label>
-                        <input type="number" id="SiO2" name="SiO2" step="0.1" min="0" max="100" placeholder="e.g. 20.0" required>
-                        <span class="input-info">Range: 0 – 100</span>
+                        <input type="number" id="SiO2" name="SiO2" step="0.1" min="15" max="25" placeholder="e.g. 20.0" required>
+                        <span class="input-info">Range: 15 – 25</span>
                     </div>
                     <div class="form-group">
                         <label for="Al2O3">Al₂O₃ (%)</label>
-                        <input type="number" id="Al2O3" name="Al2O3" step="0.1" min="0" max="100" placeholder="e.g. 5.0" required>
-                        <span class="input-info">Range: 0 – 100</span>
+                        <input type="number" id="Al2O3" name="Al2O3" step="0.1" min="3" max="8" placeholder="e.g. 5.0" required>
+                        <span class="input-info">Range: 3 – 8</span>
                     </div>
                     <div class="form-group">
                         <label for="Fe2O3">Fe₂O₃ (%)</label>
-                        <input type="number" id="Fe2O3" name="Fe2O3" step="0.1" min="0" max="100" placeholder="e.g. 3.0" required>
-                        <span class="input-info">Range: 0 – 100</span>
+                        <input type="number" id="Fe2O3" name="Fe2O3" step="0.1" min="2" max="5" placeholder="e.g. 3.0" required>
+                        <span class="input-info">Range: 2 – 5</span>
                     </div>
                 </div>
 
                 <div class="group-title">Process Conditions</div>
                 <div class="form-grid three-col">
                     <div class="form-group">
+                        <label for="Temperature_C">Temperature (°C)</label>
+                        <input type="number" id="Temperature_C" name="Temperature_C" step="0.1" min="1400" max="1450" placeholder="e.g. 1420" required>
+                        <span class="input-info">Range: 1400 – 1450</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Time_min">Kiln Residence Time (min)</label>
+                        <input type="number" id="Time_min" name="Time_min" step="0.1" min="20" max="30" placeholder="e.g. 24.0" required>
+                        <span class="input-info">Range: 20 – 30</span>
+                    </div>
+                    <div class="form-group">
                         <label for="moisture">Moisture (%)</label>
-                        <input type="number" id="moisture" name="moisture" step="0.1" min="0" max="20" placeholder="e.g. 2.0" required>
-                        <span class="input-info">Range: 0 – 20</span>
+                        <input type="number" id="moisture" name="moisture" step="0.1" min="1" max="3" placeholder="e.g. 2.0" required>
+                        <span class="input-info">Range: 1 – 3</span>
                     </div>
                     <div class="form-group">
                         <label for="particle_size">Particle Size (µm)</label>
-                        <input type="number" id="particle_size" name="particle_size" step="0.5" min="0" max="500" placeholder="e.g. 100" required>
-                        <span class="input-info">Range: 0 – 500</span>
-                    </div>
-                    <div class="form-group">
-                        <label for="temperature">Temperature (°C)</label>
-                        <input type="number" id="temperature" name="temperature" step="1" min="800" max="1600" placeholder="e.g. 1400" required>
-                        <span class="input-info">Range: 800 – 1600</span>
+                        <input type="number" id="particle_size" name="particle_size" step="0.5" min="90" max="120" placeholder="e.g. 100" required>
+                        <span class="input-info">Range: 90 – 120</span>
                     </div>
                 </div>
 
@@ -121,11 +126,11 @@
                 </div>
                 <div class="info-row">
                     <span>Input features</span>
-                    <span>11 variables</span>
+                    <span>12 variables</span>
                 </div>
                 <div class="info-row">
                     <span>Output</span>
-                    <span>Clinker ratio</span>
+                    <span>Clinker output (%)</span>
                 </div>
             </div>
         </div>
