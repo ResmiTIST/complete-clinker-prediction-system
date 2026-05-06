@@ -10,8 +10,8 @@ CORS(app)
 
 # Load trained model
 try:
-    with open('clinker_model.pkl', 'rb') as f:
-        model = load('clinker_model.pkl')
+    with open('clinker_model_final.pkl', 'rb') as f:
+        model = load('clinker_model_final.pkl')
     print("Model loaded successfully")
 except FileNotFoundError:
     print("Error: model file not found")
