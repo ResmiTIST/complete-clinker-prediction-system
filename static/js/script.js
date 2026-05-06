@@ -4,21 +4,22 @@ document.addEventListener('DOMContentLoaded', function () {
     const loadingOverlay = document.getElementById('loadingOverlay');
 
     const FIELDS = [
-        'Limestone_%', 'Clay_%', 'Silica_%', 'Temperature_C', 'Time_min',
-        'gypsum', 'CaO', 'SiO2', 'Al2O3', 'Fe2O3', 'moisture', 'particle_size'
+        'Limestone_%', 'Clay_%', 'Silica_%', 'gypsum',
+        'CaO', 'SiO2', 'Al2O3', 'Fe2O3',
+        'Temperature_C', 'Time_min', 'moisture', 'particle_size'
     ];
 
     const RANGES = {
         'Limestone_%':   [75, 80],
         'Clay_%':        [10, 15],
         'Silica_%':      [5, 15],
-        'Temperature_C': [1400, 1450],
-        'Time_min':      [20, 30],
         'gypsum':        [3, 6],
         'CaO':           [60, 70],
         'SiO2':          [15, 25],
         'Al2O3':         [3, 8],
         'Fe2O3':         [2, 5],
+        'Temperature_C': [1400, 1450],
+        'Time_min':      [20, 30],
         'moisture':      [1, 3],
         'particle_size': [90, 120],
     };
@@ -27,13 +28,13 @@ document.addEventListener('DOMContentLoaded', function () {
         'Limestone_%':   'Limestone',
         'Clay_%':        'Clay',
         'Silica_%':      'Silica',
-        'Temperature_C': 'Temperature',
-        'Time_min':      'Kiln Time',
         'gypsum':        'Gypsum',
         'CaO':           'CaO',
         'SiO2':          'SiO₂',
         'Al2O3':         'Al₂O₃',
         'Fe2O3':         'Fe₂O₃',
+        'Temperature_C': 'Temperature',
+        'Time_min':      'Kiln Time',
         'moisture':      'Moisture',
         'particle_size': 'Part. Size',
     };
@@ -42,16 +43,23 @@ document.addEventListener('DOMContentLoaded', function () {
         'Limestone_%':   '%',
         'Clay_%':        '%',
         'Silica_%':      '%',
-        'Temperature_C': '°C',
-        'Time_min':      'min',
         'gypsum':        '%',
         'CaO':           '%',
         'SiO2':          '%',
         'Al2O3':         '%',
         'Fe2O3':         '%',
+        'Temperature_C': '°C',
+        'Time_min':      'min',
         'moisture':      '%',
         'particle_size': 'µm',
     };
+
+    // Summary display order — grouped same as the form
+    const SUMMARY_ORDER = [
+        'Limestone_%', 'Clay_%', 'Silica_%', 'gypsum',
+        'CaO', 'SiO2', 'Al2O3', 'Fe2O3',
+        'Temperature_C', 'Time_min', 'moisture', 'particle_size'
+    ];
 
     // Live validation
     FIELDS.forEach(name => {
@@ -148,10 +156,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const val = result.prediction.toFixed(2);
         const f = result.features;
 
-        const summaryRows = Object.entries(f).map(([k, v]) =>
+        const summaryRows = SUMMARY_ORDER.map(k =>
             `<div class="summary-row">
                 <span>${LABELS[k] || k}</span>
-                <span>${v} ${UNITS[k] || ''}</span>
+                <span>${f[k]} ${UNITS[k] || ''}</span>
             </div>`
         ).join('');
 
